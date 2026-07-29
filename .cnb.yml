@@ -1,0 +1,20 @@
+main:
+  push:
+    - services:
+        - docker
+      stages:
+        - name: Docker build
+          script: docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest .
+        - name: Docker push
+          script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+
+.npc_task: &npc_task
+  - docker:
+      image: ${CNB_DOCKER_REGISTRY}/${CNB_NPC_SLUG_LOWERCASE}:latest
+    stages:
+      - name: npc go
+        type: npc:go
+
+$:
+  issue.comment@npc: *npc_task
+  pull_request.comment@npc: *npc_task
