@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>08 · Bento 便当格信息矩阵 · 习惯追踪App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #E8E4DC;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+    padding: 40px 20px;
+  }
+  .label {
+    position: fixed; top: 24px; left: 24px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: #8B867E; text-transform: uppercase;
+  }
+  .phone {
+    width: 393px; height: 852px;
+    background: #F5F5F7;
+    border-radius: 54px;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a, 0 30px 80px rgba(0,0,0,.3);
+    overflow: hidden;
+    position: relative;
+    color: #1D1D1F;
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 54px; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 600; font-size: 15px; z-index: 10;
+  }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #1a1a1a; border-radius: 20px; z-index: 11;
+  }
+  .screen { padding: 66px 16px 20px; height: 100%; overflow: hidden; }
+
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 6px 14px;
+  }
+  .nav-title { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .nav-sub { font-size: 12px; color: #86868B; font-weight: 500; margin-top: 2px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg,#FF9F43,#FF6B9D);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 14px;
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 96px;
+    gap: 10px;
+  }
+  .cell {
+    background: #fff;
+    border-radius: 20px;
+    padding: 14px;
+    border: 1px solid rgba(0,0,0,.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden; position: relative;
+  }
+  .cell.tall  { grid-row: span 2; }
+  .cell.wide  { grid-column: span 2; }
+  .cell.dark  { background: #1D1D1F; color: #fff; border-color: #000; }
+  .cell.tint-orange { background: linear-gradient(135deg,#FFF4E5,#FFE8CC); }
+  .cell.tint-blue   { background: linear-gradient(135deg,#E8F4FF,#D6EBFF); }
+  .cell.tint-green  { background: linear-gradient(135deg,#E8FAF0,#D4F5E3); }
+
+  .cell-label {
+    font-size: 11px; font-weight: 600; color: #86868B;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .cell.dark .cell-label { color: #98989D; }
+  .cell-big {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 36px; font-weight: 700; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .cell-unit { font-size: 13px; color: #86868B; font-weight: 500; margin-left: 2px; }
+  .cell.dark .cell-unit { color: #98989D; }
+
+  .ring-box { display: flex; align-items: center; justify-content: center; flex: 1; }
+  .ring-txt-c {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .ring-txt-c b { font-family: "JetBrains Mono"; font-size: 26px; }
+  .ring-txt-c span { font-size: 10px; color: #98989D; letter-spacing: .1em; }
+
+  .chip-row { display: flex; gap: 6px; margin-top: 6px; }
+  .chip {
+    background: rgba(0,0,0,.06);
+    font-size: 10px; font-weight: 600;
+    padding: 3px 8px; border-radius: 99px;
+  }
+  .cell.dark .chip { background: rgba(255,255,255,.12); }
+
+  .flame-big { font-size: 44px; line-height: 1; }
+  .week-dots { display: flex; gap: 6px; margin-top: 8px; }
+  .dot {
+    width: 22px; height: 22px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    background: rgba(0,0,0,.06); color: #86868B;
+  }
+  .dot.on { background: #FF9F43; color: #fff; }
+</style>
+</head>
+<body>
+<div class="label">08 · BENTO-GRID · 中性派 · 还原度 95%</div>
+<div class="phone">
+  <div class="island"></div>
+  <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+  <div class="screen">
+    <div class="nav">
+      <div>
+        <div class="nav-title">早安，花生</div>
+        <div class="nav-sub">7月30日 星期三 · 14 天连续中</div>
+      </div>
+      <div class="avatar">花</div>
+    </div>
+
+    <div class="bento">
+      <div class="cell tall dark">
+        <div class="cell-label">今日得分</div>
+        <div class="ring-box">
+          <div style="position:relative;width:110px;height:110px">
+            <svg width="110" height="110" style="transform:rotate(-90deg)">
+              <circle cx="55" cy="55" r="46" stroke="rgba(255,255,255,.12)" stroke-width="9" fill="none"/>
+              <circle cx="55" cy="55" r="46" stroke="#FF9F43" stroke-width="9" fill="none"
+                stroke-dasharray="289" stroke-dashoffset="36" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-txt-c"><b>87</b><span>/ 100</span></div>
+          </div>
+        </div>
+        <div class="chip-row"><span class="chip">▲ 4.2</span><span class="chip">Top 8%</span></div>
+      </div>
+
+      <div class="cell tint-orange">
+        <div class="cell-label">连续</div>
+        <div class="flame-big">🔥</div>
+        <div class="cell-big">14<span class="cell-unit">天</span></div>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">喝水</div>
+        <div class="cell-big">6<span class="cell-unit">/8 杯</span></div>
+        <svg width="100%" height="18" viewBox="0 0 100 18" preserveAspectRatio="none">
+          <path d="M0,12 Q15,4 30,10 T60,8 T100,6 L100,18 L0,18 Z" fill="#4FC3F7" opacity=".7"/>
+        </svg>
+      </div>
+
+      <div class="cell wide tint-blue">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div class="cell-label">本周打卡</div>
+            <div class="cell-big" style="font-size:28px;margin-top:4px">5/7 <span class="cell-unit">天</span></div>
+          </div>
+          <svg width="90" height="36" viewBox="0 0 90 36">
+            <path d="M2,30 L15,26 L28,28 L41,18 L54,20 L67,10 L80,6 L88,4" fill="none" stroke="#2196F3" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="week-dots">
+          <div class="dot on">一</div><div class="dot on">二</div><div class="dot on">三</div>
+          <div class="dot on">四</div><div class="dot on">五</div><div class="dot">六</div><div class="dot">日</div>
+        </div>
+      </div>
+
+      <div class="cell tint-green">
+        <div class="cell-label">晨跑</div>
+        <div class="cell-big">3.2<span class="cell-unit">km</span></div>
+        <div style="font-size:11px;color:#2D7A4F;font-weight:600">✓ 已完成</div>
+      </div>
+
+      <div class="cell">
+        <div class="cell-label">阅读</div>
+        <div class="cell-big">12<span class="cell-unit">/30 min</span></div>
+        <div style="height:5px;background:rgba(0,0,0,.08);border-radius:99px;overflow:hidden">
+          <div style="width:40%;height:100%;background:#E91E63;border-radius:99px"></div>
+        </div>
+      </div>
+
+      <div class="cell wide">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="cell-label">睡眠</div>
+            <div class="cell-big" style="font-size:26px;margin-top:2px">7<span class="cell-unit">h</span> 24<span class="cell-unit">min</span></div>
+          </div>
+          <svg width="120" height="34" viewBox="0 0 120 34">
+            <rect x="0"  y="12" width="14" height="10" rx="2" fill="#B39DDB"/>
+            <rect x="16" y="8"  width="14" height="14" rx="2" fill="#9575CD"/>
+            <rect x="32" y="16" width="14" height="8"  rx="2" fill="#B39DDB"/>
+            <rect x="48" y="4"  width="14" height="18" rx="2" fill="#7E57C2"/>
+            <rect x="64" y="10" width="14" height="12" rx="2" fill="#9575CD"/>
+            <rect x="80" y="18" width="14" height="7"  rx="2" fill="#D1C4E9"/>
+            <rect x="96" y="14" width="14" height="9"  rx="2" fill="#B39DDB"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

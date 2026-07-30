@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>13 · 日式空寂和纸感 Wabi-Sabi · 习惯追踪App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #E8E4DC;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+    padding: 40px 20px;
+  }
+  .label {
+    position: fixed; top: 24px; left: 24px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: #8B867E; text-transform: uppercase;
+  }
+  .phone {
+    width: 393px; height: 852px;
+    background: #FAF8F4;
+    border-radius: 54px;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a, 0 30px 80px rgba(0,0,0,.3);
+    overflow: hidden;
+    position: relative;
+    color: #3A3630;
+  }
+  /* 和纸噪点 */
+  .phone::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.035;
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 54px; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 500; font-size: 15px; z-index: 10;
+  }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #1a1a1a; border-radius: 20px; z-index: 11;
+  }
+  .screen {
+    padding: 84px 32px 32px; height: 100%;
+    position: relative; z-index: 2;
+    display: flex;
+  }
+
+  /* 竖排标题 */
+  .vertical-title {
+    writing-mode: vertical-rl;
+    font-family: "Noto Serif SC", serif;
+    font-size: 30px; font-weight: 400; letter-spacing: .35em;
+    color: #3A3630;
+    height: 320px;
+    margin-left: auto;
+    position: relative;
+  }
+  .vertical-title::after {
+    content: '';
+    position: absolute; top: -8px; right: -14px;
+    width: 12px; height: 12px;
+    background: #7A8B6F; /* 苔绿 */
+  }
+
+  .side-note {
+    writing-mode: vertical-rl;
+    font-family: "Noto Serif SC", serif;
+    font-size: 12px; font-weight: 300; letter-spacing: .3em;
+    color: #9A9284;
+    margin-left: 24px;
+    padding-top: 8px;
+  }
+
+  .main-col { flex: 1; display: flex; flex-direction: column; }
+
+  .season {
+    font-size: 11px; letter-spacing: .4em; color: #9A9284;
+    text-transform: uppercase; font-weight: 400;
+    margin-bottom: 60px;
+  }
+
+  .enso {
+    width: 120px; height: 120px; margin: 10px 0 50px 4px;
+    position: relative;
+  }
+  .enso-num {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: "Noto Serif SC", serif;
+  }
+  .enso-num b { font-size: 34px; font-weight: 400; }
+  .enso-num span { font-size: 10px; letter-spacing: .3em; color: #9A9284; margin-top: 4px; }
+
+  .habit-list { display: flex; flex-direction: column; }
+  .habit-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid #E8E2D6;
+  }
+  .habit-row:first-child { border-top: 1px solid #E8E2D6; }
+  .sq {
+    width: 14px; height: 14px; flex-shrink: 0;
+    border: 1px solid #C9C0B0;
+  }
+  .sq.done { background: #7A8B6F; border-color: #7A8B6F; }
+  .sq.half { background: linear-gradient(135deg, #7A8B6F 50%, transparent 50%); }
+  .habit-name-jp {
+    font-family: "Noto Serif SC", serif;
+    font-size: 15px; font-weight: 400; flex: 1;
+  }
+  .habit-val { font-size: 11px; color: #9A9284; letter-spacing: .1em; }
+
+  .footer-zen {
+    margin-top: auto; padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .zen-line { font-family: "Noto Serif SC", serif; font-size: 12px; color: #9A9284; letter-spacing: .15em; }
+  .hanko {
+    width: 34px; height: 34px; background: #B85450;
+    display: flex; align-items: center; justify-content: center;
+    color: #FAF8F4; font-family: "Noto Serif SC", serif;
+    font-size: 13px; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="label">13 · WABI-SABI 和纸感 · 安静派 · 还原度 78%</div>
+<div class="phone">
+  <div class="island"></div>
+  <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+  <div class="screen">
+    <div class="main-col">
+      <div class="season">文月 · 盛夏</div>
+
+      <svg class="enso" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="#E8E2D6" stroke-width="2"/>
+        <path d="M 60 8 A 52 52 0 0 1 112 60" fill="none" stroke="#3A3630" stroke-width="2.5" stroke-linecap="round"/>
+        <div class="enso-num"><b>十四</b><span>日連続</span></div>
+      </svg>
+
+      <div class="habit-list">
+        <div class="habit-row">
+          <div class="sq done"></div>
+          <div class="habit-name-jp">朝の散歩</div>
+          <div class="habit-val">三公里</div>
+        </div>
+        <div class="habit-row">
+          <div class="sq half"></div>
+          <div class="habit-name-jp">読書</div>
+          <div class="habit-val">十二分</div>
+        </div>
+        <div class="habit-row">
+          <div class="sq half"></div>
+          <div class="habit-name-jp">水を飲む</div>
+          <div class="habit-val">六杯</div>
+        </div>
+        <div class="habit-row">
+          <div class="sq"></div>
+          <div class="habit-name-jp">瞑想</div>
+          <div class="habit-val">未</div>
+        </div>
+      </div>
+
+      <div class="footer-zen">
+        <div class="zen-line">足るを知る</div>
+        <div class="hanko">習</div>
+      </div>
+    </div>
+
+    <div class="vertical-title">習慣の記録</div>
+    <div class="side-note">七月三十日</div>
+  </div>
+</div>
+</body>
+</html>

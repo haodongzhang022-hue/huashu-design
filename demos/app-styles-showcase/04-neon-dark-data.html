@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>04 · 暗黑霓虹数据感 Neon-Dark Data · 习惯追踪App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #1a1a1f;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+    padding: 40px 20px;
+  }
+  .label {
+    position: fixed; top: 24px; left: 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: #5a5a66; text-transform: uppercase;
+  }
+  .phone {
+    width: 393px; height: 852px;
+    background: #0A0A0F;
+    border-radius: 54px;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a, 0 30px 80px rgba(0,0,0,.5);
+    overflow: hidden;
+    position: relative;
+    color: #E8E9EE;
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 54px; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 600; font-size: 15px; z-index: 10;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #000; border-radius: 20px; z-index: 11;
+    border: 1px solid #1f1f28;
+  }
+  .screen { padding: 70px 20px 24px; height: 100%; overflow: hidden; position: relative; }
+
+  .live-row {
+    display: flex; align-items: center; gap: 8px;
+    font-family: "JetBrains Mono"; font-size: 11px; letter-spacing: .2em;
+    color: #8A8B98; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #39FF14;
+    box-shadow: 0 0 8px #39FF14;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; box-shadow: 0 0 8px #39FF14; }
+    50%     { opacity: .4; box-shadow: 0 0 3px #39FF14; }
+  }
+
+  .big-metric {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 72px; font-weight: 700;
+    line-height: 1; letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(180deg, #00E5FF 0%, #0091EA 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(0,229,255,.3);
+    margin-bottom: 4px;
+  }
+  .metric-label {
+    font-size: 13px; color: #8A8B98; font-weight: 500;
+    letter-spacing: .05em; margin-bottom: 20px;
+  }
+  .metric-label b { color: #39FF14; font-family: "JetBrains Mono"; font-weight: 500; }
+
+  .spark-card {
+    background: #12121A;
+    border: 1px solid #1F1F2E;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    position: relative; overflow: hidden;
+  }
+  .spark-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,.5), transparent);
+  }
+  .spark-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .spark-title { font-size: 13px; color: #8A8B98; font-weight: 500; }
+  .spark-val {
+    font-family: "JetBrains Mono"; font-size: 18px; font-weight: 500;
+    color: #00E5FF; font-variant-numeric: tabular-nums;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .mini-card {
+    background: #12121A; border: 1px solid #1F1F2E;
+    border-radius: 14px; padding: 14px;
+  }
+  .mini-label { font-size: 11px; color: #8A8B98; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+  .mini-val {
+    font-family: "JetBrains Mono"; font-size: 26px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .v-cyan   { color: #00E5FF; text-shadow: 0 0 14px rgba(0,229,255,.4); }
+  .v-green  { color: #39FF14; text-shadow: 0 0 14px rgba(57,255,20,.4); }
+  .v-pink   { color: #FF2E9A; text-shadow: 0 0 14px rgba(255,46,154,.4); }
+  .v-amber  { color: #FFB300; text-shadow: 0 0 14px rgba(255,179,0,.4); }
+
+  .ring-wrap { display: flex; align-items: center; gap: 14px; }
+  .ring { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring-txt {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: "JetBrains Mono";
+  }
+  .ring-txt b { font-size: 22px; color: #00E5FF; }
+  .ring-txt span { font-size: 9px; color: #8A8B98; letter-spacing: .1em; }
+
+  .row-list { display: flex; flex-direction: column; gap: 8px; }
+  .row-item {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; padding: 8px 0;
+    border-bottom: 1px solid #1F1F2E;
+  }
+  .row-item:last-child { border-bottom: none; }
+  .row-name { color: #C7C8D2; display: flex; gap: 8px; align-items: center; }
+  .row-val { font-family: "JetBrains Mono"; color: #8A8B98; font-variant-numeric: tabular-nums; }
+  .up { color: #39FF14; } .down { color: #FF2E9A; }
+</style>
+</head>
+<body>
+<div class="label">04 · NEON-DARK DATA · 大胆派 · 还原度 88%</div>
+<div class="phone">
+  <div class="island"></div>
+  <div class="statusbar"><span>9:41</span><span>▲▼ ⚡</span></div>
+  <div class="screen">
+    <div class="live-row"><span class="live-dot"></span> LIVE · 实时同步中</div>
+    <div class="big-metric">87.4</div>
+    <div class="metric-label">今日习惯得分 <b>▲ +4.2</b> vs 昨日</div>
+
+    <div class="spark-card">
+      <div class="spark-head">
+        <span class="spark-title">7 日趋势</span>
+        <span class="spark-val">↗ 上升</span>
+      </div>
+      <svg width="100%" height="60" viewBox="0 0 320 60" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#00E5FF" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,45 L45,40 L90,42 L135,30 L180,32 L225,20 L270,15 L320,8 L320,60 L0,60 Z" fill="url(#g1)"/>
+        <path d="M0,45 L45,40 L90,42 L135,30 L180,32 L225,20 L270,15 L320,8" fill="none" stroke="#00E5FF" stroke-width="2"/>
+        <circle cx="320" cy="8" r="3.5" fill="#00E5FF"/>
+        <circle cx="320" cy="8" r="7" fill="none" stroke="#00E5FF" opacity=".4"/>
+      </svg>
+    </div>
+
+    <div class="grid-2">
+      <div class="mini-card">
+        <div class="mini-label">连续天数</div>
+        <div class="mini-val v-green">14<span style="font-size:14px;color:#8A8B98">d</span></div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-label">完成率</div>
+        <div class="mini-val v-cyan">92<span style="font-size:14px;color:#8A8B98">%</span></div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-label">心率区间</div>
+        <div class="mini-val v-pink">128</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-label">深度睡眠</div>
+        <div class="mini-val v-amber">2.4<span style="font-size:14px;color:#8A8B98">h</span></div>
+      </div>
+    </div>
+
+    <div class="spark-card">
+      <div class="spark-head"><span class="spark-title">今日分项</span></div>
+      <div class="row-list">
+        <div class="row-item"><span class="row-name">💧 水分摄入</span><span class="row-val up">6/8 · 75%</span></div>
+        <div class="row-item"><span class="row-name">🏃 运动量</span><span class="row-val up">3.2km · +12%</span></div>
+        <div class="row-item"><span class="row-name">📖 阅读时长</span><span class="row-val down">12min · -8%</span></div>
+        <div class="row-item"><span class="row-name">😴 睡眠目标</span><span class="row-val up">7.2h · 达标</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

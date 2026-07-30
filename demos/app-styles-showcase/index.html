@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>App 原型风格示例 · 6 款同主题对比 · huashu-design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #141210;
+    color: #EDEAE4;
+    font-family: "Inter", sans-serif;
+    padding: 60px 40px 80px;
+  }
+  .wrap { max-width: 1400px; margin: 0 auto; }
+
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: .3em; color: #B85D3D;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  h1 {
+    font-family: "Noto Serif SC", serif;
+    font-size: clamp(34px, 4.5vw, 54px);
+    font-weight: 600; line-height: 1.15; letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .lede {
+    font-size: 15px; line-height: 1.8; color: #9A9284;
+    max-width: 720px; margin-bottom: 14px;
+  }
+  .lede b { color: #EDEAE4; font-weight: 600; }
+  .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px; color: #6B655B; letter-spacing: .05em;
+    margin-bottom: 54px;
+  }
+
+  .band {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 46px 0 22px; padding-bottom: 10px;
+    border-bottom: 1px solid #2A2620;
+  }
+  .band-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; transform: translateY(-1px); }
+  .band h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .band span { font-size: 12px; color: #6B655B; font-family: "JetBrains Mono"; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 26px; }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } body { padding: 40px 16px 60px; } }
+
+  .card {
+    background: #1C1915;
+    border: 1px solid #2A2620;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: #B85D3D; transform: translateY(-3px); }
+  .thumb {
+    height: 480px;
+    background: #0F0D0B;
+    position: relative; overflow: hidden;
+  }
+  .thumb iframe {
+    width: 393px; height: 852px;
+    border: 0;
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%) scale(0.55);
+    transform-origin: top center;
+    pointer-events: none;
+  }
+  .card-body { padding: 18px 20px 20px; }
+  .card-tag {
+    display: inline-block;
+    font-family: "JetBrains Mono"; font-size: 10px; letter-spacing: .18em;
+    padding: 4px 9px; border-radius: 5px;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .tag-bold { background: rgba(255,107,157,.12); color: #FF6B9D; }
+  .tag-mid  { background: rgba(255,159,67,.12); color: #FF9F43; }
+  .tag-calm { background: rgba(122,139,111,.18); color: #A8B89E; }
+  .card-title {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .card-desc { font-size: 12.5px; line-height: 1.7; color: #9A9284; margin-bottom: 14px; }
+  .card-link {
+    font-family: "JetBrains Mono"; font-size: 12px;
+    color: #B85D3D; text-decoration: none;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  .foot {
+    margin-top: 70px; padding-top: 20px;
+    border-top: 1px solid #2A2620;
+    font-family: "JetBrains Mono"; font-size: 11px; color: #6B655B;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">huashu-design · references/app-styles.md · Demo</div>
+  <h1>同一款习惯追踪 App，<br>六种截然不同的长相。</h1>
+  <p class="lede">
+    这 6 个 HTML 示例演示了 <b>app-styles.md</b> 风格库中的 6 种代表性风格——
+    大胆派 ×3（玻璃拟态 / 糖果游戏化 / 暗黑霓虹）、中性派 ×2（Bento 矩阵 / 温暖编辑）、安静派 ×1（日式和纸），外加 1 个安静派彩蛋（终端等宽）。
+    <b>所有示例使用完全相同的产品内容</b>（同一用户、同一组习惯数据、同一首屏信息架构），
+    差异只来自「屏内长相」——这正是三方向 Fallback 想达到的效果：真·三个不同物种，而不是同一副骨架换三次皮。
+  </p>
+  <div class="meta">393×852 · 纯 HTML/CSS · 无生图 · 点击查看全尺寸 →</div>
+
+  <div class="band">
+    <div class="band-dot" style="background:#FF6B9D"></div>
+    <h2>🔥 大胆派</h2><span>BOLD · 高识别度 · 强情绪</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><iframe src="01-glassmorphism.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-bold">01 · 大胆 · 还原 85%</span>
+        <div class="card-title">新拟态玻璃层叠 Glassmorphism</div>
+        <div class="card-desc">渐变氛围底 + 多层 backdrop-filter 毛玻璃卡 + 1px 半透明高光描边。适配 AI 助手 / 健康 / 金融 dashboard。</div>
+        <a class="card-link" href="01-glassmorphism.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="thumb"><iframe src="02-candy-playful.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-bold">02 · 大胆 · 还原 92%</span>
+        <div class="card-title">糖果圆角游戏化 Candy-Playful</div>
+        <div class="card-desc">Duolingo 系：高饱和糖果色 + 凸起 3D 按钮（:active 按压下沉）+ 火焰连续签到。适配教育 / 习惯 / 大众消费品。</div>
+        <a class="card-link" href="02-candy-playful.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="thumb"><iframe src="04-neon-dark-data.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-bold">04 · 大胆 · 还原 88%</span>
+        <div class="card-title">暗黑霓虹数据感 Neon-Dark Data</div>
+        <div class="card-desc">近黑底 + 电光青霓虹 accent + 发光描边 + 等宽 tabular-nums 数字。适配健康监测 / 金融 / 运动数据。</div>
+        <a class="card-link" href="04-neon-dark-data.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="band-dot" style="background:#FF9F43"></div>
+    <h2>⚖️ 中性派</h2><span>BALANCED · 结构与气质并重</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><iframe src="08-bento-grid.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-mid">08 · 中性 · 还原 95%</span>
+        <div class="card-title">Bento 便当格信息矩阵</div>
+        <div class="card-desc">不等高圆角卡矩阵（2×2 大小混排）+ 每卡独立信息单元 + 发丝描边。适配 AI 工具 / 健康总览 / 理财 dashboard。</div>
+        <a class="card-link" href="08-bento-grid.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="thumb"><iframe src="10-warm-editorial.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-mid">10 · 中性 · 还原 97%</span>
+        <div class="card-title">温暖编辑出版物 Warm-Editorial</div>
+        <div class="card-desc">奶油纸底 #F5F0E8 + 赤陶橙 accent + 衬线标题 × 无衬线正文 + 书籍式 1.7 行高。适配阅读 / 播客 / 深度内容。</div>
+        <a class="card-link" href="10-warm-editorial.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="band-dot" style="background:#A8B89E"></div>
+    <h2>🤍 安静派</h2><span>QUIET · 克制 · 界面退隐</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><iframe src="13-wabi-sabi.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-calm">13 · 安静 · 还原 78%</span>
+        <div class="card-title">日式空寂和纸感 Wabi-Sabi</div>
+        <div class="card-desc">和纸白底 + 大量留白（间）+ 竖排标题 writing-mode: vertical-rl + 苔绿 accent + 极淡噪点。适配冥想 / 东方生活方式。</div>
+        <a class="card-link" href="13-wabi-sabi.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="thumb"><iframe src="15-terminal-mono.html" loading="lazy"></iframe></div>
+      <div class="card-body">
+        <span class="card-tag tag-calm">15 · 安静 · 还原 90%</span>
+        <div class="card-title">终端极客等宽 Terminal-Mono</div>
+        <div class="card-desc">炭黑底 + 等宽字为主角 + 终端绿输出 + ASCII 分隔线 + 闪烁光标块。适配开发者工具 / 服务器监控 / CLI 产品。</div>
+        <a class="card-link" href="15-terminal-mono.html" target="_blank">打开全尺寸 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>© huashu-design · demos/app-styles-showcase</span>
+    <span>风格规格 → references/app-styles.md</span>
+  </div>
+</div>
+</body>
+</html>
