@@ -259,8 +259,13 @@ description: 花叔Design——用HTML做高保真原型、幻灯片、动画、
 
 每个 subagent 拿同一份 spec + 同一份用户真实内容，各按一套逻辑产出一版**纯 HTML/CSS**（default 无生图）真实视觉：
 
-**逻辑一 · 🎲 秒数轮盘（随机 · 20 选 1）**
-跑 `date +%S` 取秒数，算 `秒数 % 20 + 1` 得 1-20，从 `design-styles.md` **对应半区**（做网页用网页 20 种 / 做 PPT 用 PPT 20 种）取那一号风格，subagent 严格按其视觉 DNA + HTML 实现做。作用：用时间掷骰子，强制打破模型「每次都偷选安全极简」的确定性偏好。抽到还原度<70% 的（如 Memphis 做旧纹理）须标注「该部分用纯色块降级，不假装做出原版质感」。
+**逻辑一 · 🎲 秒数轮盘（随机 · 20 选 1 / App 15 选 1）**
+跑 `date +%S` 取秒数取号，从对应风格库取那一号，subagent 严格按其视觉 DNA + HTML 实现做：
+- **网页 / 信息图** → `秒数 % 20 + 1`，从 `design-styles.md` **网页半区**取
+- **PPT / deck** → `秒数 % 20 + 1`，从 `design-styles.md` **PPT 半区**取
+- **App / iOS 原型** → `秒数 % 15 + 1`，从 `references/app-styles.md` **App 专属 15 种**取（❌ 不从网页 20 种取——landing page 风格塞进 393×852 屏内必翻车）
+
+作用：用时间掷骰子，强制打破模型「每次都偷选安全极简」的确定性偏好。抽到还原度<70% 的（如 Memphis 做旧纹理）须标注「该部分用纯色块降级，不假装做出原版质感」。
 
 **逻辑二 · 🏆 现实参照（标杆迁移）**
 选 1 个**世界上和该用户需求最相关、且你明确知道设计极出色（最好获奖：Awwwards / CSS Design Awards / FWA / Apple Design Award）**的真实网站 / PPT 模板 / iOS 原型作为参照标准。subagent 先用 WebSearch 核实该案例真实存在与其设计语言，拆解配色/字体/布局/标志元素，再迁移到用户内容上。作用：用真实世界的最高标准锚定，不靠凭空想象。
@@ -303,7 +308,8 @@ description: 花叔Design——用HTML做高保真原型、幻灯片、动画、
 4. 🔴 **iOS 设备框必须用 `assets/ios_frame.jsx`**：禁止手写 Dynamic Island / status bar / home indicator / bezel——自己写 99% 撞位置 bug（岛是固定 124×36，两侧 status bar 空间极窄）
 5. **信息密度分型**：默认克制型（少一层容器 / 少一个 border / 少一个装饰 icon）；产品卖点是 AI / 数据 / 上下文感知时走**高密度型**——每屏 ≥3 处**有内容的**差异化信息，装饰 icon 照样忌讳
 6. **交付前 Playwright 跑 3 项点击测试**（进详情 / 关键标注点 / tab 切换），`pageerror` 为 0 再交付
-7. **品位锚点**：衬线 display（Newsreader/Source Serif/EB Garamond）+ `-apple-system` body；一个有温度的底色 + 单 accent 贯穿；留一处「值得截图」的 120% 细节签名
+7. **品位锚点（默认底盘，非唯一答案）**：无 design context 且未走三方向时的默认底盘——衬线 display（Newsreader/Source Serif/EB Garamond）+ `-apple-system` body；一个有温度的底色 + 单 accent 贯穿；留一处「值得截图」的 120% 细节签名
+8. 🔴 **风格多样性**：App 原型 Fallback 轮盘分流 → `references/app-styles.md`（15 种专属库），不许从网页 20 种取。完整规则与配比见 `references/app-styles.md` 尾部速查表
 
 
 ## 工作流程
@@ -474,8 +480,8 @@ description: 花叔Design——用HTML做高保真原型、幻灯片、动画、
 | **动画的正向设计语法**（Anthropic 级叙事/运动/节奏/表达风格）| `references/animation-best-practices.md`（5 段叙事+Expo easing+运动语言 8 条+3 种场景配方）|
 | **带解说的长动画 / 长概念视频**（5-20 分钟带配音、解说驱动画面、TTS 实测时长生成 timeline）| `references/voiceover-pipeline.md`（铁律：连续运动叙事、禁 PowerPoint 切换）+ `assets/narration_stage.jsx` + `scripts/cloud/tts-doubao.mjs`（可选云TTS，自备key，见SECURITY.md）+ `scripts/narrate-pipeline.mjs` + `scripts/{mix-voiceover,render-narration}.sh` |
 | 做Tweaks实时调参 | `references/tweaks-system.md` |
-| 没有design context怎么办 | `references/design-context.md`（薄 fallback） 或 `references/design-styles.md`（厚 fallback：HTML 原生 40 种风格库，网页 20+PPT 20，按温度分级） |
-| **需求模糊要推荐风格方向** | `references/design-styles.md`（40 种 HTML 原生风格库，含还原度/温度/开源字体）+ `assets/showcases/INDEX.md`（预制截图画廊） |
+| 没有design context怎么办 | `references/design-context.md`（薄 fallback） 或 `references/design-styles.md`（厚 fallback：HTML 原生 40 种风格库，网页 20+PPT 20，按温度分级）；**App 原型走 `references/app-styles.md`（15 种 in-screen 风格库）** |
+| **需求模糊要推荐风格方向** | `references/design-styles.md`（40 种 HTML 原生风格库，含还原度/温度/开源字体）+ `assets/showcases/INDEX.md`（预制截图画廊）；App 原型另见 `references/app-styles.md`（15 种 in-screen 风格库） |
 | **按输出类型查场景模板**（封面/PPT/信息图） | `references/scene-templates.md` |
 | 输出完后验证 | `references/verification.md` + `scripts/verify.py` |
 | **设计评审/打分**（设计完成后可选） | `references/critique-guide.md`（5 维度评分+常见问题清单） |

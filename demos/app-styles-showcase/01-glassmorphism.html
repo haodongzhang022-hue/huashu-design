@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>01 · 新拟态玻璃层叠 Glassmorphism · 习惯追踪App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #1a1a1f;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+    padding: 40px 20px;
+  }
+  .label {
+    position: fixed; top: 24px; left: 24px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: #5a5a66; text-transform: uppercase;
+  }
+  .phone {
+    width: 393px; height: 852px;
+    border-radius: 54px;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a, 0 30px 80px rgba(0,0,0,.5);
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(120,80,255,.55), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 90% 30%, rgba(255,90,180,.4), transparent 60%),
+      radial-gradient(ellipse 90% 60% at 50% 100%, rgba(0,180,255,.45), transparent 65%),
+      linear-gradient(180deg, #1B1533 0%, #0E0B1E 100%);
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 54px; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 600; font-size: 15px; z-index: 10;
+  }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #000; border-radius: 20px; z-index: 11;
+  }
+  .screen { padding: 72px 20px 26px; height: 100%; position: relative; z-index: 2; }
+
+  .hello {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .hello-sub { font-size: 13px; color: rgba(255,255,255,.55); font-weight: 400; margin-bottom: 22px; }
+
+  .glass {
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.22),
+      0 12px 30px rgba(0,0,0,.25);
+    padding: 18px;
+  }
+
+  .hero-card { margin-bottom: 14px; position: relative; overflow: hidden; }
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+  }
+  .hero-row { display: flex; align-items: center; gap: 16px; }
+  .hero-ring { position: relative; width: 92px; height: 92px; flex-shrink: 0; }
+  .hero-ring-txt {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .hero-ring-txt b { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .hero-ring-txt span { font-size: 10px; color: rgba(255,255,255,.55); letter-spacing: .1em; }
+  .hero-info h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .hero-info p { font-size: 12.5px; color: rgba(255,255,255,.6); line-height: 1.5; }
+  .pill {
+    display: inline-block; margin-top: 8px;
+    padding: 4px 10px; border-radius: 99px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.15);
+    font-size: 11px; font-weight: 500;
+  }
+
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .row-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 20px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.16);
+  }
+  .rc-icon {
+    width: 42px; height: 42px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.14);
+  }
+  .rc-info { flex: 1; min-width: 0; }
+  .rc-name { font-size: 14.5px; font-weight: 600; }
+  .rc-sub { font-size: 11.5px; color: rgba(255,255,255,.5); margin-top: 2px; }
+  .rc-bar {
+    margin-top: 7px; height: 4px;
+    background: rgba(255,255,255,.12); border-radius: 99px; overflow: hidden;
+  }
+  .rc-fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, #A78BFA, #F0ABFC);
+    box-shadow: 0 0 8px rgba(167,139,250,.6);
+  }
+  .rc-check {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,.3);
+    display: flex; align-items: center; justify-content: center;
+    color: transparent; font-size: 13px;
+  }
+  .rc-check.on {
+    background: linear-gradient(135deg,#A78BFA,#F0ABFC);
+    border-color: transparent; color: #fff;
+    box-shadow: 0 0 14px rgba(167,139,250,.7);
+  }
+
+  .tabbar {
+    position: absolute; bottom: 22px; left: 20px; right: 20px;
+    display: flex; justify-content: space-around;
+    padding: 14px 10px; border-radius: 26px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 12px 30px rgba(0,0,0,.3);
+    font-size: 20px;
+  }
+  .tabbar span { opacity: .45; }
+  .tabbar span.on { opacity: 1; filter: drop-shadow(0 0 8px rgba(255,255,255,.5)); }
+</style>
+</head>
+<body>
+<div class="label">01 · GLASSMORPHISM · 大胆派 · 还原度 85%</div>
+<div class="phone">
+  <div class="island"></div>
+  <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+  <div class="screen">
+    <div class="hello">早安，花生</div>
+    <div class="hello-sub">星期三 · 已连续记录 14 天</div>
+
+    <div class="glass hero-card">
+      <div class="hero-row">
+        <div class="hero-ring">
+          <svg width="92" height="92" style="transform:rotate(-90deg)">
+            <defs>
+              <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#F0ABFC"/>
+              </linearGradient>
+            </defs>
+            <circle cx="46" cy="46" r="38" stroke="rgba(255,255,255,.12)" stroke-width="7" fill="none"/>
+            <circle cx="46" cy="46" r="38" stroke="url(#hg)" stroke-width="7" fill="none"
+              stroke-dasharray="239" stroke-dashoffset="31" stroke-linecap="round"/>
+          </svg>
+          <div class="hero-ring-txt"><b>87</b><span>SCORE</span></div>
+        </div>
+        <div class="hero-info">
+          <h3>今日状态极佳 ✨</h3>
+          <p>5 项习惯已完成 3 项，比昨日同期提升 12%。</p>
+          <span class="pill">🔥 14 天连续</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="row-card">
+        <div class="rc-icon">🏃</div>
+        <div class="rc-info">
+          <div class="rc-name">晨跑 3 公里</div>
+          <div class="rc-sub">6:40 AM · 已完成</div>
+          <div class="rc-bar"><div class="rc-fill" style="width:100%"></div></div>
+        </div>
+        <div class="rc-check on">✓</div>
+      </div>
+      <div class="row-card">
+        <div class="rc-icon">💧</div>
+        <div class="rc-info">
+          <div class="rc-name">喝 8 杯水</div>
+          <div class="rc-sub">6/8 杯 · 还差 2 杯</div>
+          <div class="rc-bar"><div class="rc-fill" style="width:75%"></div></div>
+        </div>
+        <div class="rc-check">✓</div>
+      </div>
+      <div class="row-card">
+        <div class="rc-icon">📖</div>
+        <div class="rc-info">
+          <div class="rc-name">阅读 30 分钟</div>
+          <div class="rc-sub">12/30 分钟 · 进行中</div>
+          <div class="rc-bar"><div class="rc-fill" style="width:40%"></div></div>
+        </div>
+        <div class="rc-check">✓</div>
+      </div>
+    </div>
+
+    <div class="tabbar">
+      <span class="on">🏠</span><span>📊</span><span>🏆</span><span>⚙️</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

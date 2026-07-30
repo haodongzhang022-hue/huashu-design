@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<title>10 · 温暖编辑出版物 Warm-Editorial · 习惯追踪App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&family=Noto+Serif+SC:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  body {
+    min-height: 100vh;
+    background: #E8E4DC;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+    padding: 40px 20px;
+  }
+  .label {
+    position: fixed; top: 24px; left: 24px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .15em;
+    color: #8B867E; text-transform: uppercase;
+  }
+  .phone {
+    width: 393px; height: 852px;
+    background: #F5F0E8;
+    border-radius: 54px;
+    box-shadow: 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a, 0 30px 80px rgba(0,0,0,.3);
+    overflow: hidden;
+    position: relative;
+    color: #2A2118;
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 54px; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 600; font-size: 15px; z-index: 10;
+  }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 32px; background: #1a1a1a; border-radius: 20px; z-index: 11;
+  }
+  .screen { padding: 78px 28px 28px; height: 100%; overflow: hidden; }
+
+  .masthead {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 14px; border-bottom: 1px solid #D8CFC0;
+    margin-bottom: 22px;
+  }
+  .brand {
+    font-family: "Newsreader", "Noto Serif SC", serif;
+    font-size: 14px; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+  .date { font-size: 11px; color: #8B7D6B; letter-spacing: .08em; }
+
+  .issue-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: .2em;
+    color: #B85D3D; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: "Newsreader", "Noto Serif SC", serif;
+    font-size: 38px; font-weight: 500; line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  h1 em { font-style: italic; color: #B85D3D; }
+  .lede {
+    font-size: 15px; line-height: 1.7; color: #5A4F42;
+    margin-bottom: 26px;
+  }
+
+  .rule {
+    display: flex; align-items: center; gap: 10px;
+    margin: 22px 0 16px;
+  }
+  .rule::before, .rule::after {
+    content: ''; flex: 1; height: 1px; background: #D8CFC0;
+  }
+  .rule span {
+    font-size: 10px; letter-spacing: .28em; color: #8B7D6B;
+    text-transform: uppercase; font-weight: 600;
+  }
+
+  .entry { margin-bottom: 20px; }
+  .entry-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .entry-title {
+    font-family: "Newsreader", "Noto Serif SC", serif;
+    font-size: 20px; font-weight: 500;
+  }
+  .entry-meta { font-size: 11px; color: #B85D3D; font-weight: 600; letter-spacing: .05em; }
+  .entry-body { font-size: 13.5px; line-height: 1.7; color: #5A4F42; }
+  .entry-bar {
+    margin-top: 10px; height: 3px; background: #E5DCCB; border-radius: 99px; overflow: hidden;
+  }
+  .entry-fill { height: 100%; background: #B85D3D; border-radius: 99px; }
+
+  .quote {
+    margin-top: 26px; padding: 18px 20px;
+    background: #EFE7D8; border-left: 3px solid #B85D3D;
+    border-radius: 0 12px 12px 0;
+  }
+  .quote-text {
+    font-family: "Newsreader", "Noto Serif SC", serif;
+    font-size: 16px; font-style: italic; line-height: 1.6; color: #4A3F32;
+  }
+  .quote-by { font-size: 11px; color: #8B7D6B; margin-top: 8px; letter-spacing: .1em; }
+
+  .foot {
+    position: absolute; bottom: 24px; left: 28px; right: 28px;
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: #8B7D6B; letter-spacing: .1em;
+    border-top: 1px solid #D8CFC0; padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="label">10 · WARM-EDITORIAL · 中性派 · 还原度 97%</div>
+<div class="phone">
+  <div class="island"></div>
+  <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+  <div class="screen">
+    <div class="masthead">
+      <div class="brand">Habit Journal</div>
+      <div class="date">VOL. 14 · 7月30日</div>
+    </div>
+
+    <div class="issue-tag">第 14 天 · 晨间版</div>
+    <h1>缓慢而<em>坚定</em>地，<br>成为自己想成为的人。</h1>
+    <p class="lede">花生，早安。昨日你完成了 5 项习惯中的 4 项，连续记录已进入第二周。习惯的复利，正在悄悄累积。</p>
+
+    <div class="rule"><span>今日记录</span></div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">晨跑三公里</div>
+        <div class="entry-meta">已完成</div>
+      </div>
+      <p class="entry-body">6:40 AM · 滨江步道，气温 26°C，配速 5'42"。状态比上周同期更轻盈。</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">阅读三十分钟</div>
+        <div class="entry-meta">12 / 30 min</div>
+      </div>
+      <p class="entry-body">《原子习惯》第四章 · 「环境的力量」。今晚睡前补完剩余 18 分钟。</p>
+      <div class="entry-bar"><div class="entry-fill" style="width:40%"></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">八杯水</div>
+        <div class="entry-meta">6 / 8</div>
+      </div>
+      <div class="entry-bar"><div class="entry-fill" style="width:75%"></div></div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-text">"你并不会上升到目标的高度，而是会落到系统的水平。"</div>
+      <div class="quote-by">— JAMES CLEAR · 《原子习惯》</div>
+    </div>
+
+    <div class="foot">
+      <span>§ 14 / 100</span>
+      <span>HABIT JOURNAL · 晨间版</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
