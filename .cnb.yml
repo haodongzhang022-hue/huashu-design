@@ -13,8 +13,9 @@ master:
     # 打包 skill 主体内容为 zip，发布到稳定 tag Release（skill-latest）供用户直接下载
     - name: package-skill-zip
       docker:
-        # 使用仓库自身镜像（node:22-slim + git/curl/jq/zip/cnb-cli）
-        image: ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
+        # 直接从 Dockerfile 构建（node:22-slim + git/curl/jq/zip/cnb-cli），无需依赖预推送的镜像
+        build:
+          dockerfile: ./Dockerfile
       stages:
         - name: 打包 skill 并发布到 Release
           script: bash scripts/release-zip.sh
