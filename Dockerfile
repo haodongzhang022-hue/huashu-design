@@ -3,7 +3,7 @@ FROM node:22-bookworm-slim
 # 安装系统依赖
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates git curl jq \
+        ca-certificates git curl jq zip \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 Node.js CLI 工具
