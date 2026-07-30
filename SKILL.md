@@ -309,7 +309,7 @@ description: 花叔Design——用HTML做高保真原型、幻灯片、动画、
 5. **信息密度分型**：默认克制型（少一层容器 / 少一个 border / 少一个装饰 icon）；产品卖点是 AI / 数据 / 上下文感知时走**高密度型**——每屏 ≥3 处**有内容的**差异化信息，装饰 icon 照样忌讳
 6. **交付前 Playwright 跑 3 项点击测试**（进详情 / 关键标注点 / tab 切换），`pageerror` 为 0 再交付
 7. **品位锚点（默认底盘，非唯一答案）**：无 design context 且未走三方向时的默认底盘——衬线 display（Newsreader/Source Serif/EB Garamond）+ `-apple-system` body；一个有温度的底色 + 单 accent 贯穿；留一处「值得截图」的 120% 细节签名
-8. 🔴 **风格多样性**：App 原型走 Fallback 三方向时，秒数轮盘从 `references/app-styles.md` 的 **App 专属 15 种**取号（`秒数 % 15 + 1`），**不要**从 design-styles.md 的网页 20 种取（那是 landing page 风格，塞进屏内必翻车）；三方向至少 1 个大胆款，不许三版都落「米白+衬线+单 accent」。完整配比见 `references/app-styles.md` 尾部速查表
+8. 🔴 **风格多样性**：App 原型 Fallback 轮盘分流 → `references/app-styles.md`（15 种专属库），不许从网页 20 种取。完整规则与配比见 `references/app-styles.md` 尾部速查表
 
 
 ## 工作流程
@@ -480,8 +480,8 @@ description: 花叔Design——用HTML做高保真原型、幻灯片、动画、
 | **动画的正向设计语法**（Anthropic 级叙事/运动/节奏/表达风格）| `references/animation-best-practices.md`（5 段叙事+Expo easing+运动语言 8 条+3 种场景配方）|
 | **带解说的长动画 / 长概念视频**（5-20 分钟带配音、解说驱动画面、TTS 实测时长生成 timeline）| `references/voiceover-pipeline.md`（铁律：连续运动叙事、禁 PowerPoint 切换）+ `assets/narration_stage.jsx` + `scripts/cloud/tts-doubao.mjs`（可选云TTS，自备key，见SECURITY.md）+ `scripts/narrate-pipeline.mjs` + `scripts/{mix-voiceover,render-narration}.sh` |
 | 做Tweaks实时调参 | `references/tweaks-system.md` |
-| 没有design context怎么办 | `references/design-context.md`（薄 fallback） 或 `references/design-styles.md`（厚 fallback：HTML 原生 40 种风格库，网页 20+PPT 20，按温度分级） |
-| **需求模糊要推荐风格方向** | `references/design-styles.md`（40 种 HTML 原生风格库，含还原度/温度/开源字体）+ `assets/showcases/INDEX.md`（预制截图画廊）；**App 原型专属** → `references/app-styles.md`（15 种 in-screen 风格库） |
+| 没有design context怎么办 | `references/design-context.md`（薄 fallback） 或 `references/design-styles.md`（厚 fallback：HTML 原生 40 种风格库，网页 20+PPT 20，按温度分级）；**App 原型走 `references/app-styles.md`（15 种 in-screen 风格库）** |
+| **需求模糊要推荐风格方向** | `references/design-styles.md`（40 种 HTML 原生风格库，含还原度/温度/开源字体）+ `assets/showcases/INDEX.md`（预制截图画廊）；App 原型另见 `references/app-styles.md`（15 种 in-screen 风格库） |
 | **按输出类型查场景模板**（封面/PPT/信息图） | `references/scene-templates.md` |
 | 输出完后验证 | `references/verification.md` + `scripts/verify.py` |
 | **设计评审/打分**（设计完成后可选） | `references/critique-guide.md`（5 维度评分+常见问题清单） |
