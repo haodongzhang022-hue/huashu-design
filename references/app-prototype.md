@@ -104,9 +104,11 @@ Screen 组件接 callback props（`onTabChange`、`onOpen`、`onClose`、`onTogg
 
 静态截图只能看 layout，交互 bug 要点过才发现。用 Playwright 跑 3 项最小点击测试：进入详情 / 关键标注点 / tab 切换。检查 `pageerror` 为 0 再交付。Playwright 可用 `npx playwright` 调用，或按本机全局安装路径（`npm root -g` + `/playwright`）。
 
-### 4. 品位锚点（pursue list，fallback 首选）
+### 4. 品位锚点（默认底盘，fallback 首选之一）
 
-没有 design system 时默认往这些方向走，避免撞 AI slop：
+⚖️ **定位**：这是「无 design context 且未走三方向」时的**默认底盘**，不是 App 原型的唯一答案。走 Fallback 三方向时，秒数轮盘从 `references/app-styles.md` 的 **App 专属 15 种风格库**取号（大胆/中性/安静三温度带，含 in-screen 还原度与首屏签名），三方向至少 1 个大胆款——别让所有 App 原型都长成「米白+衬线+单 accent」这一个样。
+
+默认底盘（无 context 时避免撞 AI slop）：
 
 | 维度 | 首选 | 避免 |
 |------|------|------|
